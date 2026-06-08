@@ -7,8 +7,15 @@ import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 public class ExampleEvent {
 
     public static void onPlayerReady(PlayerReadyEvent event) {
-        Player player = event.getPlayer();
-        player.sendMessage(Message.raw("Welcome " + player.getDisplayName()));
+        Ref<EntityStore> ref = event.getPlayerRef();
+    
+        if (ref.isValid()) {
+            Store<EntityStore> store = ref.getStore();
+            PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+            if (playerRef != null) {
+                playerRef.sendMessage(Message.raw("Welcome " + playerRef.getUsername()));
+            }
+        }
     }
 
 }
