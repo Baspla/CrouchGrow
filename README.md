@@ -1,161 +1,34 @@
-# Hytale Plugin Template
+# Crouch Grow
 
-A ready-to-use starting point for creating Hytale server plugins with Java, _or Kotlin_. If you've
-been using the Asset Editor and want to start writing server-side logic — custom commands, event
-handling, gameplay systems — this is the simplest place to begin.
+Crouch Grow is a Hytale server plugin that allows players to grow crops by crouching near them.
 
-This template uses the [Hytale Gradle Plugin](https://github.com/AzureDoom/Hytale-Gradle-Plugin),
-a Gradle plugin maintained by AzureDoom for Hytale mod/plugin development. It handles the repetitive
-project setup work for you, including manifest generation, validation, local server runs, IDE source
-setup, and optional hosted Hytale Javadoc injection.
+## How it works
 
-## How to start
+When a player crouches near a crop a growth boost is applied to the crop, allowing it to grow faster than normal.
+Everytime the player crouches 30s (configurable) are removed from the waiting time until the next growth stage.
+This scales with growth multipliers, so fertilizing and watering the crop will make crouch growing even more effective.
+You can use the `/crouchgrowinfo` to get a better idea of how it works.
 
-1. Copy the template by downloading it or using the **Use this template** button.
-2. [Configure or install the Java SDK](https://hytalemodding.dev/en/docs/guides/plugin/setting-up-env)
-   to use Java 25. JetBrains Runtime is recommended for the best hot-reload/debugging experience.
-3. Open the project in your favorite IDE. We recommend
-   [IntelliJ IDEA](https://www.jetbrains.com/idea/download).
-4. Update the project values in `gradle.properties`:
-    - `rootProject.name` in `settings.gradle.kts`
-    - `group`
-    - `manifest_group`
-    - `mod_name`
-    - `mod_id`
-    - `main_class`
-    - `mod_author`
-    - `mod_description`
-    - `mod_url`
-5. Optionally run `./gradlew` if your IDE does not automatically sync the project.
-6. Prepare the Hytale development environment:
+## Configuration
 
-   ```bash
-   ./gradlew setupHytaleDev
-   ```
+The plugin can be configured in the `config.json` file:
 
-7. Run the local development server:
+-  `EnableCrouchGrowth` - Whether crouch growing is enabled or not. (default: true)
 
-   ```bash
-   ./gradlew runServer
-   ```
+-  `GrowthRadius` - The radius around the player in which crops will be affected by crouch growing. (default: 5)
 
-> On Windows, use `./gradlew.bat` or `gradlew.bat` instead of `./gradlew`. The Gradle wrapper is
-> included so you do not need to install Gradle separately; only Java is required.
+-  `SecondsAddedPerCrouch` - The amount of seconds added to the growth progress. (default: 30)
 
-When the server starts, the output may prompt you to authorize your Hytale server. After that, you
-can begin developing your plugin while the server handles local development runs.
+-  `MaxCropsAffectedPerCrouch` - The maximum number of crops that can be affected by crouch growing at the same time. (default: 16)
 
-From here, the [HytaleModding guides](https://hytalemodding.dev/en/docs/guides/plugin/build-and-test)
-cover more details.
+-  `ShowPlayerParticle` - Whether to show particles around the player when crouch growing. (default: true)
 
-## Hytale Gradle Plugin
+-  `ShowPlantParticle` - Whether to show particles around the plants when crouch growing. (default: true)
 
-This template is built around AzureDoom's `com.azuredoom.hytale-tools` Gradle plugin.
+## Commands
 
-The plugin is configured in `build.gradle.kts`:
+- `/crouchgrowinfo` - Check if crouch growing is enabled for you. Requires the `crouchgrow.info` permission.
 
-```kotlin
-plugins {
-    idea
-    java
-    id("com.azuredoom.hytale-tools") version "1.+"
-}
-```
+## Permissions
 
-The AzureDoom Maven repository is configured in `settings.gradle.kts`:
-
-```kotlin
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-        maven {
-            name = "AzureDoom Maven"
-            url = uri("https://maven.azuredoom.com/mods")
-        }
-    }
-}
-```
-
-Most plugin-specific settings are controlled from `gradle.properties` and passed into the
-`hytaleTools` block in `build.gradle.kts`. This keeps common project metadata in one easy-to-edit
-place.
-
-For full plugin documentation, configuration options, tasks, and multi-project setup, visit the
-[Hytale Gradle Plugin repository](https://github.com/AzureDoom/Hytale-Gradle-Plugin).
-
-## Useful commands
-
-```bash
-# Sync/setup the local Hytale development environment
-./gradlew setupHytaleDev
-
-# Run the local Hytale server
-./gradlew runServer
-
-# Run the server with debugging and hot swap enabled
-./gradlew runServer -Ddebug=true -Dhotswap=true
-
-# Check your JVM and hot swap setup
-./gradlew hytaleJvmDoctor
-
-# Build the plugin
-./gradlew build
-
-# Refresh dependencies if something fails to resolve
-./gradlew build --refresh-dependencies
-```
-
-## Project structure
-
-```text
-src/main/java/        Plugin source code
-src/main/resources/   Plugin resources, including manifest.json
-gradle.properties     Main template configuration
-build.gradle.kts      Gradle build and Hytale Gradle Plugin configuration
-settings.gradle.kts   Plugin repositories and project name
-```
-
-## Manifest configuration
-
-The generated `manifest.json` is driven by the values in `gradle.properties`, including:
-
-- `manifest_group`
-- `mod_id`
-- `version`
-- `mod_description`
-- `mod_author`
-- `mod_url`
-- `main_class`
-- `manifest_dependencies`
-- `manifest_opt_dependencies`
-- `manifestServerVersion`
-
-After changing these values, run:
-
-```bash
-./gradlew updatePluginManifest
-```
-
-## Troubleshooting
-
-- **Gradle sync fails in IntelliJ** — Check that Java 25 is installed and configured under
-  **File → Project Structure → SDKs**.
-- **The Hytale Gradle Plugin does not resolve** — Make sure `settings.gradle.kts` includes the
-  AzureDoom Maven repository at `https://maven.azuredoom.com/mods`.
-- **Build fails with missing dependencies** — Run `./gradlew build --refresh-dependencies` and make
-  sure you have internet access.
-- **Permission denied on `./gradlew`** — Run `chmod +x gradlew` on macOS/Linux.
-- **Hot reload or enhanced class redefinition does not work** — Use JetBrains Runtime and try
-  `./gradlew hytaleJvmDoctor` to verify your JVM setup.
-
-## Resources
-
-- [Hytale Gradle Plugin](https://github.com/AzureDoom/Hytale-Gradle-Plugin)
-- [Hytale Modding Guides](https://hytalemodding.dev)
-- [Hytale Modding Discord](https://discord.gg/hytalemodding)
-
-## License
-
-Add your own license after copying the template. We recommend MIT, BSD, or Apache to keep the
-modding community open.
+- `crouchgrow.info` - Allows players to use the `/crouchgrowinfo` command to check if crouch growing is enabled for them.

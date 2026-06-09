@@ -9,3 +9,7 @@ run/
 .classpath
 .project
 .settings/
+.idea/
+.vscode/
+*.log
+.devcontainer/

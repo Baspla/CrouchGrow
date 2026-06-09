@@ -1,16 +1,14 @@
 {
-    "Group": "HytaleModding",
-    "Name": "ExamplePlugin",
-    "Version": "0.0.0",
-    "Description": "Description of your plugin",
+    "Group": "Baspla",
+    "Name": "CrouchGrow",
+    "Version": "1.1.0",
+    "Description": "Crouch to grow your crops faster!",
     "Authors": [
         {
-            "Name": "Your_Name",
-            "Email": "your.email@example.com",
-            "Url": "https://your-website.com"
+            "Name": "Baspla"
         }
     ],
-    "Website": "https://your-plugin-website.com",
+    "Website": "https://github.com/Baspla/CrouchGrow",
     "DisabledByDefault": false,
     "IncludesAssetPack": true,
     "Dependencies": {
@@ -20,7 +18,7 @@
         
     },
     "ServerVersion": ">=0.5.3 <0.6.0",
-    "Main": "dev.hytalemodding.ExamplePlugin",
+    "Main": "de.baspla.crouchgrow.CrouchGrowPlugin",
     "UpdateChecker": {
         "CurseForge": ""
     }

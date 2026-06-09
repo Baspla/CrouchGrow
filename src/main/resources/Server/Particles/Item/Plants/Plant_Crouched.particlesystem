@@ -1,0 +1,9 @@
+{
+  "CullDistance": 30.0,
+  "Spawners": [
+    {
+      "SpawnerId": "Plant_Crouched"
+    }
+  ],
+  "LifeSpan": 1
+}

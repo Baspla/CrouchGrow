@@ -1,0 +1,9 @@
+{
+  "CullDistance": 30.0,
+  "Spawners": [
+    {
+      "SpawnerId": "Player_Crouched_Grow"
+    }
+  ],
+  "LifeSpan": 1
+}

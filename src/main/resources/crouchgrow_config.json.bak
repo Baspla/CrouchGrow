@@ -1,0 +1,8 @@
+{
+  "EnableCrouchGrowth": true,
+  "GrowthRadius": 5,
+  "SecondsAddedPerCrouch": 30,
+  "MaxCropsAffectedPerCrouch": 16,
+  "ShowPlayerParticle": true,
+  "ShowPlantParticle": true
+}
